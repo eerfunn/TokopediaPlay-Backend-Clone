@@ -5,8 +5,13 @@ const productSchema = new Schema({
   productId: String,
   title: String,
   photo: String,
-  url: String,
   price: Number,
+  added_by: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
+  ],
   created_at: Date,
   updated_at: Date,
   deleted_at: Date,
