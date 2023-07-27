@@ -1,5 +1,5 @@
 const express = require("express");
-
+const { addVideoService } = require("../services/videoServices");
 const videoArray = [
   {
     id: "v001",
@@ -46,7 +46,32 @@ const getVideoById = (req, res) => {
     });
   }
 };
+
+const addVideo = async (req, res) => {
+  try {
+    const { videoId, title, userId, thumbnail, products } = req.body;
+    const data = await addVideoService(
+      videoId,
+      title,
+      userId,
+      thumbnail,
+      products
+    );
+    res.status(201).json({
+      message: "New Video Added!",
+      status: 201,
+      data: data,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Something went wrong!",
+      status: 500,
+    });
+  }
+};
 module.exports = {
   getVideos,
   getVideoById,
+  addVideo,
 };
