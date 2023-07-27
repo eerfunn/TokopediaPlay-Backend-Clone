@@ -1,4 +1,5 @@
 const express = require("express");
+const { registerUserData } = require("../data/userData");
 
 const usersArray = [
   {
@@ -53,4 +54,23 @@ const getUserById = (req, res) => {
     });
   }
 };
-module.exports = { getUsers, getUserById };
+
+const addUser = async (req, res) => {
+  try {
+    const { uid, email, no_hp, nama, password } = req.body;
+    const data = await registerUserData(uid, email, no_hp, nama, password);
+
+    res.status(201).json({
+      message: "Success Add User!",
+      status: 201,
+      data: data,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Something went wrong",
+      status: 500,
+    });
+  }
+};
+module.exports = { getUsers, getUserById, addUser };
