@@ -1,12 +1,12 @@
 const { Video } = require("../db/schema/videoSchema");
-const { getUserById } = require("../data/userData");
 const { getProductByIdData } = require("../data/productData");
+
 const getAllVideosData = () => {
   const data = Video.find();
   return data;
 };
 
-const getVideoById = (videoId) => {
+const getVideoByIdData = (videoId) => {
   const data = Video.findOne({ videoId: videoId });
   return data;
 };
@@ -34,20 +34,29 @@ const insertVideoData = async (videoId, userId, title, thumbnail, products) => {
   }
 };
 
-const updateVideoData = (videoId, userId, title, thumbnail, products) => {
+const updateVideoData = async (videoId, title, thumbnail, products) => {
   try {
-    const data = Video.findOneAndUpdate(
+    let prodArr = [];
+    for (let i of products) {
+      const product = await getProductByIdData(i);
+      prodArr.push(product._id);
+    }
+    const data = await Video.findOneAndUpdate(
       { videoId: videoId },
       {
         videoId: videoId,
         title: title,
-        userId: userId,
         thumbnail: thumbnail,
-        products: products,
+        products: prodArr,
         updated_at: new Date(),
       },
       { new: true }
-    ).save();
+    )
+      .exec()
+      .then((response) => {
+        console.log("Data updated: ", response);
+        return response;
+      });
     return data;
   } catch (error) {
     console.error(error);
@@ -66,7 +75,7 @@ const deleteVideoData = (videoId) => {
 };
 module.exports = {
   getAllVideosData,
-  getVideoById,
+  getVideoByIdData,
   insertVideoData,
   updateVideoData,
   deleteVideoData,
