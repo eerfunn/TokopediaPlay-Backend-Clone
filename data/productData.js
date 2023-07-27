@@ -1,6 +1,4 @@
 const { Product } = require("../db/schema/productSchema");
-const { User } = require("../db/schema/userSchema");
-const { getUserById } = require("../data/userData");
 
 const getAllProductsData = () => {
   const data = Product.find();
@@ -12,12 +10,8 @@ const getProductByIdData = (productId) => {
   return data;
 };
 
-const insertProductData = async (productId, title, photo, price, uid) => {
+const insertProductData = async (productId, title, photo, price, user) => {
   try {
-    const user = await getUserById(uid);
-    if (!user) {
-      throw new Error("User did not exist");
-    }
     const data = await new Product({
       productId: productId,
       title: title,
@@ -34,8 +28,8 @@ const insertProductData = async (productId, title, photo, price, uid) => {
 };
 const updateProductByIdData = async (productId, title, photo, price) => {
   try {
-    await Product.updateOne(
-      productId,
+    const data = await Product.findOneAndUpdate(
+      { productId: productId },
       {
         title: title,
         photo: photo,
@@ -45,18 +39,30 @@ const updateProductByIdData = async (productId, title, photo, price) => {
       { new: true }
     )
       .exec()
-      .then((res) => {
-        console.log("Product Updated!");
+      .then((response) => {
+        console.log("Data updated: ", response);
+        return response;
       });
+    return data;
   } catch (error) {
     console.error(error);
     throw new Error(error);
   }
 };
 
+const deleteProductData = async (productId) => {
+  try {
+    const data = await Product.deleteOne({ productId: productId });
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
+  }
+};
 module.exports = {
   getAllProductsData,
   getProductByIdData,
   updateProductByIdData,
   insertProductData,
+  deleteProductData,
 };
