@@ -1,29 +1,28 @@
 const express = require("express");
-const { addVideoService } = require("../services/videoServices");
-const videoArray = [
-  {
-    id: "v001",
-    title: "Blindr",
-    userId: "001",
-  },
-  {
-    id: "v002",
-    title: "Nvidia 4090Ti",
-    userId: "002",
-  },
-  {
-    id: "v003",
-    title: "New Shoes",
-    userId: "003",
-  },
-];
-const getVideos = (req, res) => {
+const {
+  getAllVideosService,
+  getVideoByIdService,
+  addVideoService,
+  updateVideoService,
+  deleteVideoService,
+} = require("../services/videoServices");
+
+const getVideos = async (req, res) => {
   try {
-    res.status(200).json({
-      message: "Success Get All Videos Data!",
-      status: 200,
-      data: videoArray,
-    });
+    const data = await getAllVideosService();
+
+    if (!data) {
+      res.status(200).json({
+        message: "Video data is empty",
+        status: 200,
+      });
+    } else {
+      res.status(200).json({
+        message: "Success Get All Videos Data!",
+        status: 200,
+        data: data,
+      });
+    }
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong",
@@ -31,14 +30,22 @@ const getVideos = (req, res) => {
     });
   }
 };
-const getVideoById = (req, res) => {
+const getVideoById = async (req, res) => {
   try {
-    const { id } = req.params.id;
-    res.status(200).json({
-      message: "Success Get Video Data!",
-      status: 200,
-      data: videoArray[id],
-    });
+    const videoId = req.params.id;
+    const data = await getVideoByIdService(videoId);
+    if (!data) {
+      res.status(404).json({
+        message: "Data not found!",
+        status: 404,
+      });
+    } else {
+      res.status(200).json({
+        message: "Success Get Video Data!",
+        status: 200,
+        data: data,
+      });
+    }
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong!",
@@ -70,8 +77,56 @@ const addVideo = async (req, res) => {
     });
   }
 };
+
+const updateVideo = async (req, res) => {
+  try {
+    const { videoId, title, userId, thumbnail, products } = req.body;
+    const data = await updateVideoService(
+      videoId,
+      title,
+      userId,
+      thumbnail,
+      products
+    );
+
+    res.status(200).json({
+      message: "Data updated!",
+      status: 200,
+      data: data,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Something went wrong!",
+      status: 500,
+    });
+  }
+};
+
+const deleteVideo = async (req, res) => {
+  try {
+    const videoId = req.params.id;
+    const uid = req.params.uid;
+    console.log(videoId);
+    console.log(uid);
+    const data = await deleteVideoService(videoId, uid);
+    res.status(204).json({
+      message: "Data deleted!",
+      status: 204,
+      data: data,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Something went wrong!",
+      status: 500,
+    });
+  }
+};
 module.exports = {
   getVideos,
   getVideoById,
   addVideo,
+  updateVideo,
+  deleteVideo,
 };
