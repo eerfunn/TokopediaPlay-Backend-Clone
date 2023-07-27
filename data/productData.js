@@ -1,5 +1,6 @@
 const { Product } = require("../db/schema/productSchema");
 const { User } = require("../db/schema/userSchema");
+const { getUserById } = require("../data/userData");
 
 const getAllProductsData = () => {
   const data = Product.find();
@@ -11,13 +12,19 @@ const getProductByIdData = (productId) => {
   return data;
 };
 
-const insertProductData = (productId, title, photo, price) => {
+const insertProductData = async (productId, title, photo, price, uid) => {
   try {
-    const data = new Product({
+    const user = await getUserById(uid);
+    if (!user) {
+      throw new Error("User did not exist");
+    }
+    const data = await new Product({
       productId: productId,
       title: title,
       photo: photo,
       price: price,
+      added_by: user._id,
+      created_at: new Date(),
     }).save();
     return data;
   } catch (error) {
