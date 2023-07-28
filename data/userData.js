@@ -1,19 +1,29 @@
 const { User } = require("../db/schema/userSchema");
 
-const getUsersData = () => {
-  const data = User.find();
+const getUsersData = async () => {
+  const data = await User.find();
   return data;
 };
-const getUserById = (userId) => {
-  const data = User.findOne({ userId: userId });
+
+const getUserByIdData = async (userId) => {
+  const data = await User.findOne({ userId: userId });
   return data;
 };
-const registerUserData = async (uid, email, no_hp, nama, password) => {
+const checkIsEmailRegistered = async (email) => {
+  const data = await User.findOne({ email: email });
+  return data;
+};
+
+const userIdCounter = async () => {
+  const count = await User.find().count();
+  const uid = "user-" + (count + 1);
+  return uid;
+};
+const registerUserData = async (uid, email, name, password) => {
   const data = new User({
     userId: uid,
     email: email,
-    no_hp: no_hp,
-    nama: nama,
+    name: name,
     password: password,
     createdAt: new Date(),
   }).save();
@@ -22,6 +32,8 @@ const registerUserData = async (uid, email, no_hp, nama, password) => {
 
 module.exports = {
   getUsersData,
-  getUserById,
+  getUserByIdData,
   registerUserData,
+  checkIsEmailRegistered,
+  userIdCounter,
 };

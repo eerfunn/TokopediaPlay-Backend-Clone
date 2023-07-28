@@ -1,5 +1,12 @@
 const express = require("express");
-const { getUsers, addUser } = require("../controllers/userController");
+const {
+  getUsers,
+  getUserById,
+  whoAmI,
+  register,
+  login,
+  logout,
+} = require("../controllers/userController");
 const {
   addVideo,
   updateVideo,
@@ -14,7 +21,7 @@ const {
   updateProduct,
   deleteProduct,
 } = require("../controllers/productController");
-
+const { verifyToken } = require("../middleware/authMiddleware");
 const route = express.Router();
 
 route.get("/", (req, res) => {
@@ -22,7 +29,11 @@ route.get("/", (req, res) => {
 });
 
 route.get("/users", getUsers);
-route.post("/addUser", addUser);
+route.get("/user/:id", getUserById);
+route.get("/whoami", whoAmI);
+route.post("/register", register);
+route.post("/login", login);
+route.post("/logout", logout);
 
 route.get("/products", getAllProducts);
 route.get("/product/:id", getProductById);

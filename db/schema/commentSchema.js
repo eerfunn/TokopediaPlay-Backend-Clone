@@ -9,7 +9,12 @@ const commentSchema = new Schema({
       ref: "video",
     },
   ],
-  email: String,
+  userId: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
+  ],
   content: String,
   created_at: Date,
   updated_at: Date,
