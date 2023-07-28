@@ -1,4 +1,4 @@
-const { getUserById } = require("../data/userData");
+const { getUserByIdData } = require("../data/userData");
 const {
   getAllVideosData,
   getVideoByIdData,
@@ -49,7 +49,7 @@ const updateVideoService = async (
   userId
 ) => {
   try {
-    const user = await getUserById(userId);
+    const user = await getUserByIdData(userId);
     if (!userId) {
       throw new Error("Insufficient Parameter userId");
     }
@@ -69,7 +69,7 @@ const updateVideoService = async (
 
 const deleteVideoService = async (videoId, userId) => {
   try {
-    const user = await getUserById(userId);
+    const user = await getUserByIdData(userId);
     if (!userId) {
       throw new Error("Insufficient Parameter userId");
     }

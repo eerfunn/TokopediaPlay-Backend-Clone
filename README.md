@@ -2,6 +2,10 @@
 
 ### GG3FSGP0363 - Irfan Nada Bayu Samudera - FS7 @ Generasi Gigih 3.0
 
+# Gist:
+
+[Gist Link](https://gist.github.com/eerfunn/0a58587925e8559c9a77d1026c3e7fa8)
+
 # API Structure
 
 - Controllers: Response handling
