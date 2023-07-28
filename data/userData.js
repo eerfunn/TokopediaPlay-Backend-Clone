@@ -6,9 +6,10 @@ const getUsersData = async () => {
 };
 
 const getUserByIdData = async (userId) => {
-  const data = await User.findOne({ userId: userId });
+  const data = await User.findOne({ userId: userId }).select(["-password"]);
   return data;
 };
+
 const checkIsEmailRegistered = async (email) => {
   const data = await User.findOne({ email: email });
   return data;
