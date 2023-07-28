@@ -80,13 +80,15 @@ const addVideo = async (req, res) => {
 
 const updateVideo = async (req, res) => {
   try {
-    const { videoId, title, userId, thumbnail, products } = req.body;
+    const videoId = req.params.id;
+    const uid = req.params.uid;
+    const { title, thumbnail, products } = req.body;
     const data = await updateVideoService(
       videoId,
       title,
-      userId,
       thumbnail,
-      products
+      products,
+      uid
     );
 
     res.status(200).json({
@@ -123,6 +125,7 @@ const deleteVideo = async (req, res) => {
     });
   }
 };
+
 module.exports = {
   getVideos,
   getVideoById,

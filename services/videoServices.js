@@ -42,9 +42,9 @@ const addVideoService = async (videoId, title, userId, thumbnail, products) => {
 const updateVideoService = async (
   videoId,
   title,
-  userId,
   thumbnail,
-  products
+  products,
+  userId
 ) => {
   try {
     const user = await getUserById(userId);
