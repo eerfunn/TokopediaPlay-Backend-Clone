@@ -2,6 +2,12 @@
 
 ### GG3FSGP0363 - Irfan Nada Bayu Samudera - FS7 @ Generasi Gigih 3.0
 
+# API Structure
+
+- Controllers: Response handling
+- Services: Business Logic and Validation
+- Data: Data Manipulation
+
 # Database Structure:
 
 ### User Schema:
