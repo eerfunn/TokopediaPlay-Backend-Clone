@@ -4,8 +4,9 @@ const {
   insertProductData,
   updateProductByIdData,
   deleteProductData,
+  productIdCounter,
 } = require("../data/productData");
-const { getUserById } = require("../data/userData");
+const { getUserByIdData } = require("../data/userData");
 
 const getAllProductsService = async () => {
   try {
@@ -27,19 +28,14 @@ const getProductByIdService = async (productId) => {
   }
 };
 
-const insertProductService = async (productId, title, photo, price, uid) => {
+const insertProductService = async (title, photo, price, uid) => {
   try {
-    const user = await getUserById(uid);
+    const pid = await productIdCounter();
+    const user = await getUserByIdData(uid);
     if (!user) {
       throw new Error("Unauthorized");
     }
-    const data = await insertProductData(
-      productId,
-      title,
-      photo,
-      price,
-      user._id
-    );
+    const data = await insertProductData(pid, title, photo, price, user._id);
     return data;
   } catch (error) {
     console.error(error);
@@ -49,7 +45,7 @@ const insertProductService = async (productId, title, photo, price, uid) => {
 
 const updateProductService = async (productId, title, photo, price, uid) => {
   try {
-    const user = await getUserById(uid);
+    const user = await getUserByIdData(uid);
     if (!user) {
       throw new Error("Unauthorized");
     }
@@ -69,7 +65,7 @@ const updateProductService = async (productId, title, photo, price, uid) => {
 
 const deleteProductService = async (productId, userId) => {
   try {
-    const user = await getUserById(userId);
+    const user = await getUserByIdData(userId);
     if (!user) {
       throw new Error("Unauthorized");
     }

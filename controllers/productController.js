@@ -57,17 +57,11 @@ const getProductById = async (req, res) => {
 };
 const insertProduct = async (req, res) => {
   try {
-    const { productId, title, photo, price, uid } = req.body;
+    const { title, photo, price, uid } = req.body;
     if (!uid) {
       throw new Error("Insufficient Parameter UID");
     }
-    const data = await insertProductService(
-      productId,
-      title,
-      photo,
-      price,
-      uid
-    );
+    const data = await insertProductService(title, photo, price, uid);
     res.status(201).json({
       message: "Success Add Product Data!",
       status: 201,
