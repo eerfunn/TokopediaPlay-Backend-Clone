@@ -5,6 +5,7 @@ const {
   insertVideoData,
   updateVideoData,
   deleteVideoData,
+  videoIdCounter,
 } = require("../data/videoData");
 
 const getAllVideosService = async () => {
@@ -29,10 +30,11 @@ const getVideoByIdService = async (videoId) => {
 
 const addVideoService = async (videoId, title, userId, thumbnail, products) => {
   try {
+    const vid = await videoIdCounter();
     if (!userId) {
       throw new Error("Insufficient Parameter userId");
     }
-    await insertVideoData(videoId, userId, title, thumbnail, products);
+    await insertVideoData(vid, userId, title, thumbnail, products);
   } catch (err) {
     console.error(err);
     throw new Error();

@@ -89,4 +89,5 @@ module.exports = {
   insertVideoData,
   updateVideoData,
   deleteVideoData,
+  videoIdCounter,
 };
