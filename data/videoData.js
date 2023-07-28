@@ -2,7 +2,7 @@ const { Video } = require("../db/schema/videoSchema");
 const { getProductByIdData } = require("../data/productData");
 
 const getAllVideosData = () => {
-  const data = Video.find();
+  const data = Video.find().populate("products", "photo title price");
   return data;
 };
 
@@ -10,15 +10,25 @@ const getVideoByIdData = (videoId) => {
   const data = Video.findOne({ videoId: videoId });
   return data;
 };
-
+const videoIdCounter = async () => {
+  const count = await Video.find().count();
+  const vid = "video-" + (count + 1);
+  return vid;
+};
 const insertVideoData = async (videoId, userId, title, thumbnail, products) => {
   try {
     let prodArr = [];
+    let badData = 0;
     for (let i of products) {
       const product = await getProductByIdData(i);
-      prodArr.push(product._id);
+      if (!product) {
+        badData++;
+      } else {
+        prodArr.push(product._id);
+      }
     }
-    console.log("ARR:" + prodArr);
+    console.log("Success: " + prodArr);
+    console.log("Fail: " + badData);
     const data = new Video({
       videoId: videoId,
       title: title,

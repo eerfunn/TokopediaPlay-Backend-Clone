@@ -10,6 +10,12 @@ const getProductByIdData = (productId) => {
   return data;
 };
 
+const productIdCounter = async () => {
+  const count = await Product.find().count();
+  const pid = "product-" + (count + 1);
+  return pid;
+};
+
 const insertProductData = async (productId, title, photo, price, user) => {
   try {
     const data = await new Product({
@@ -62,6 +68,7 @@ const deleteProductData = async (productId) => {
 module.exports = {
   getAllProductsData,
   getProductByIdData,
+  productIdCounter,
   updateProductByIdData,
   insertProductData,
   deleteProductData,
