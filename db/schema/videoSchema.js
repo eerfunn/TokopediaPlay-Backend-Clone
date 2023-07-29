@@ -6,6 +6,7 @@ const videoSchema = new Schema({
   userId: String,
   title: String,
   thumbnail: String,
+  description: String,
   products: [
     {
       type: Schema.Types.ObjectId,
