@@ -16,7 +16,7 @@ const getAllCommentsService = async () => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -32,7 +32,7 @@ const getCommentByIdService = async (commentId) => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -56,7 +56,7 @@ const insertCommentService = async (vid, uid, content) => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -65,44 +65,45 @@ const insertCommentService = async (vid, uid, content) => {
 const updateCommentService = async (cid, uid, content) => {
   try {
     const commentId = await getCommentByIdData(cid);
-    const userId = await getUserByIdData(uid);
-    if (!commentId || !userId || !content) {
+    const incomeUserId = await getUserByIdData(uid);
+    console.log(content);
+    if (!commentId || !incomeUserId || !content) {
       return errorTemplate(400, "Bad Request, input data is not valid");
     }
-    if (commentId.userId != userId._id) {
+    if (String(commentId.userId) != String(incomeUserId._id)) {
       return errorTemplate(
         403,
         "I'm sorry, you don't have the right permission for this resource"
       );
     }
-    const data = await updateCommentData(commentId, content);
+    const data = await updateCommentData(cid, content);
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
   }
 };
-const deleteCommentService = async (uid, cid) => {
+const deleteCommentService = async (id, uid) => {
   try {
-    const commentId = await getCommentByIdData(cid);
+    const commentId = await getCommentByIdData(id);
     const userId = await getUserByIdData(uid);
     if (!commentId || !userId) {
       return errorTemplate(400, "Bad Request, input data is not valid");
     }
-    if (commentId.userId != userId._id) {
+    if (String(commentId.userId) != String(userId._id)) {
       return errorTemplate(
         403,
         "I'm sorry, you don't have the right permission for this resource"
       );
     }
-    const data = await deleteCommentData(cid);
+    const data = await deleteCommentData(id);
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);

@@ -32,7 +32,7 @@ const updateCommentData = async (cid, content) => {
     const data = await Comment.findOneAndUpdate(
       { commentId: cid },
       {
-        title: content,
+        content: content,
         updated_at: new Date(),
       },
       { new: true }
