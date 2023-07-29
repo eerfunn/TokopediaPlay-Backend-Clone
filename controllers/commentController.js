@@ -131,14 +131,14 @@ const updateComment = async (req, res) => {
 };
 const deleteComment = async (req, res) => {
   try {
-    const { id, cid } = req.params.id;
-    if (!id || !cid) {
+    const { id, uid } = req.params;
+    if (!id || !uid) {
       return res.status(400).json({
         status: 400,
         message: "Bad request, input is not valid or insufficient parameters",
       });
     }
-    const data = await deleteCommentService(id, cid);
+    const data = await deleteCommentService(id, uid);
     res.status(200).json({
       status: 200,
       message: "Success delete comment!",
