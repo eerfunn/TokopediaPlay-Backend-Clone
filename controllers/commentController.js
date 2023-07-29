@@ -33,7 +33,8 @@ const getAllComments = async (req, res) => {
 
 const getCommentById = async (req, res) => {
   try {
-    const { id } = req.params.id;
+    const id = req.params.id;
+    console.log(id);
     if (!id) {
       return res.status(400).json({
         status: 400,
@@ -47,6 +48,7 @@ const getCommentById = async (req, res) => {
       data: data,
     });
   } catch (error) {
+    console.log(error.code);
     if (error.code) {
       return res.status(error.code).json({
         status: error.code,
@@ -54,8 +56,7 @@ const getCommentById = async (req, res) => {
         error: error.stack,
       });
     }
-    res.status(500);
-    return res.json({
+    return res.status(500).json({
       status: 500,
       message: "Something went wrong!",
       error: error.stack,
@@ -97,8 +98,8 @@ const insertComment = async (req, res) => {
 };
 const updateComment = async (req, res) => {
   try {
-    const { id } = req.params.id;
-    const { uid, content } = req.body;
+    const { id, uid } = req.params.id;
+    const { content } = req.body;
     if (!id || !uid || !content) {
       return res.status(400).json({
         status: 400,
