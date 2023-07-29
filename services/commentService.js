@@ -6,7 +6,11 @@ const {
   updateCommentData,
   deleteCommentData,
 } = require("../data/commentData");
-const { getVideoByIdData } = require("../data/videoData");
+const {
+  getVideoByIdData,
+  updateVideoData,
+  updateVideoCommentData,
+} = require("../data/videoData");
 const { getUserByIdData } = require("../data/userData");
 const { errorTemplate } = require("../services/errorService");
 
@@ -43,6 +47,7 @@ const insertCommentService = async (vid, uid, content) => {
   try {
     const commentId = await commentIdCounter();
     const videoId = await getVideoByIdData(vid);
+    console.log(videoId._id);
     const userId = await getUserByIdData(uid);
     if (!videoId || !userId || !content) {
       return errorTemplate(400, "Bad Request, input data is not valid");
@@ -53,6 +58,7 @@ const insertCommentService = async (vid, uid, content) => {
       userId._id,
       content
     );
+    await updateVideoCommentData(vid, data._id);
     return data;
   } catch (error) {
     console.error(error);

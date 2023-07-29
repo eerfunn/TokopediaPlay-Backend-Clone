@@ -2,7 +2,7 @@ const { Video } = require("../db/schema/videoSchema");
 const { getProductByIdData } = require("../data/productData");
 
 const getAllVideosData = () => {
-  const data = Video.find().populate("products", "photo title price");
+  const data = Video.find().populate("products comments");
   return data;
 };
 
@@ -74,6 +74,30 @@ const updateVideoData = async (videoId, title, thumbnail, products) => {
   }
 };
 
+const updateVideoCommentData = async (videoId, commentId) => {
+  try {
+    const video = await getVideoByIdData(videoId);
+    console.log(video);
+    const data = await Video.findOneAndUpdate(
+      { videoId: videoId },
+      {
+        comments: [...video.comments, commentId],
+        updated_at: new Date(),
+      },
+      { new: true }
+    )
+      .exec()
+      .then((response) => {
+        console.log("Data updated: ", response);
+        return response;
+      });
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
+  }
+};
+
 const deleteVideoData = (videoId) => {
   try {
     const data = Video.deleteOne({ videoId: videoId });
@@ -90,4 +114,5 @@ module.exports = {
   updateVideoData,
   deleteVideoData,
   videoIdCounter,
+  updateVideoCommentData,
 };
