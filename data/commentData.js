@@ -1,11 +1,11 @@
 const { Comment } = require("../db/schema/commentSchema");
 
-const getComments = async () => {
+const getAllCommentsData = async () => {
   const data = await Comment.find();
   return data;
 };
 
-const getCommentById = async (commentId) => {
+const getCommentByIdData = async (commentId) => {
   const data = await Comment.findOne({ commentId: commentId });
   return data;
 };
@@ -25,4 +25,44 @@ const insertCommentData = async (cid, vid, uid, content) => {
     created_at: new Date(),
   }).save();
   return data;
+};
+
+const updateCommentData = async (cid, content) => {
+  try {
+    const data = await Comment.findOneAndUpdate(
+      { commentId: cid },
+      {
+        title: content,
+        updated_at: new Date(),
+      },
+      { new: true }
+    )
+      .exec()
+      .then((response) => {
+        console.log("Data updated: ", response);
+        return response;
+      });
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
+  }
+};
+
+const deleteCommentData = async (commentId) => {
+  try {
+    const data = await Comment.deleteOne({ commentId: commentId });
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
+  }
+};
+module.exports = {
+  getAllCommentsData,
+  getCommentByIdData,
+  commentIdCounter,
+  insertCommentData,
+  updateCommentData,
+  deleteCommentData,
 };
