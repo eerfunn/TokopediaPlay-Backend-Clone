@@ -66,15 +66,14 @@ const getCommentById = async (req, res) => {
 
 const insertComment = async (req, res) => {
   try {
-    const { id } = req.params.id;
-    const { uid, content } = req.body;
-    if (!id || !uid || !content) {
+    const { vid, uid, content } = req.body;
+    if (!vid || !uid || !content) {
       return res.status(400).json({
         status: 400,
         message: "Bad request, input is not valid or insufficient parameters!",
       });
     }
-    const data = await insertCommentService(id, uid, content);
+    const data = await insertCommentService(vid, uid, content);
     res.status(200).json({
       status: 200,
       message: "Success add new comment!",
@@ -98,7 +97,7 @@ const insertComment = async (req, res) => {
 };
 const updateComment = async (req, res) => {
   try {
-    const { id, uid } = req.params.id;
+    const { id, uid } = req.params;
     const { content } = req.body;
     if (!id || !uid || !content) {
       return res.status(400).json({
@@ -113,7 +112,9 @@ const updateComment = async (req, res) => {
       data: data,
     });
   } catch (error) {
+    console.log("COntroller:" + error.code);
     if (error.code) {
+      console.log(error.code);
       return res.status(error.code).json({
         status: error.code,
         message: error.message,

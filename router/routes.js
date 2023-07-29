@@ -57,7 +57,7 @@ route.delete("/video/:id/delete/:uid", deleteVideo);
 route.get("/comments", getAllComments);
 route.get("/comment/:id", getCommentById);
 route.post("/comment/add", insertComment);
-route.put("/comment/:id/update/:uid", updateVideo);
-route.delete("/comment/:id/delete/:uid", deleteVideo);
+route.put("/comment/:id/update/:uid", updateComment);
+route.delete("/comment/:id/delete/:uid", deleteComment);
 
 module.exports = route;
