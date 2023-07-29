@@ -16,7 +16,10 @@ const getAllCommentsService = async () => {
     return data;
   } catch (error) {
     console.error(error);
-    throw new Error();
+    if (error.status) {
+      throw error;
+    }
+    throw new Error(error);
   }
 };
 
@@ -29,7 +32,10 @@ const getCommentByIdService = async (commentId) => {
     return data;
   } catch (error) {
     console.error(error);
-    throw new Error();
+    if (error.status) {
+      throw error;
+    }
+    throw new Error(error);
   }
 };
 
@@ -50,7 +56,10 @@ const insertCommentService = async (vid, uid, content) => {
     return data;
   } catch (error) {
     console.error(error);
-    throw new Error();
+    if (error.status) {
+      throw error;
+    }
+    throw new Error(error);
   }
 };
 const updateCommentService = async (cid, uid, content) => {
@@ -70,7 +79,10 @@ const updateCommentService = async (cid, uid, content) => {
     return data;
   } catch (error) {
     console.error(error);
-    throw new Error();
+    if (error.status) {
+      throw error;
+    }
+    throw new Error(error);
   }
 };
 const deleteCommentService = async (uid, cid) => {
@@ -90,7 +102,10 @@ const deleteCommentService = async (uid, cid) => {
     return data;
   } catch (error) {
     console.error(error);
-    throw new Error();
+    if (error.status) {
+      throw error;
+    }
+    throw new Error(error);
   }
 };
 module.exports = {
