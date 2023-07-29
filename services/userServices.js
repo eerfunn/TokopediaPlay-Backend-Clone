@@ -16,7 +16,7 @@ const getUsersService = async () => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -31,7 +31,7 @@ const getUserByIdService = async (userId) => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -52,7 +52,7 @@ const registerUserService = async (name, email, password) => {
     return user;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -81,7 +81,7 @@ const loginUserService = async (req, res) => {
     return token;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);

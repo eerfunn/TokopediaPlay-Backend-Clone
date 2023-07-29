@@ -16,7 +16,7 @@ const getAllCommentsService = async () => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -32,7 +32,7 @@ const getCommentByIdService = async (commentId) => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -56,7 +56,7 @@ const insertCommentService = async (vid, uid, content) => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -79,7 +79,7 @@ const updateCommentService = async (cid, uid, content) => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -102,7 +102,7 @@ const deleteCommentService = async (uid, cid) => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);

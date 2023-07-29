@@ -14,7 +14,7 @@ const getAllVideosService = async () => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -27,7 +27,7 @@ const getVideoByIdService = async (videoId) => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -43,7 +43,7 @@ const addVideoService = async (videoId, title, userId, thumbnail, products) => {
     await insertVideoData(vid, userId, title, thumbnail, products);
   } catch (err) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -72,7 +72,7 @@ const updateVideoService = async (
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
@@ -95,7 +95,7 @@ const deleteVideoService = async (videoId, userId) => {
     return data;
   } catch (error) {
     console.error(error);
-    if (error.status) {
+    if (error.code) {
       throw error;
     }
     throw new Error(error);
