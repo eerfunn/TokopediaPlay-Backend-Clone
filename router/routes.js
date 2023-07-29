@@ -21,6 +21,13 @@ const {
   updateProduct,
   deleteProduct,
 } = require("../controllers/productController");
+const {
+  getAllComments,
+  getCommentById,
+  insertComment,
+  updateComment,
+  deleteComment,
+} = require("../controllers/commentController");
 const { verifyToken } = require("../middleware/authMiddleware");
 const route = express.Router();
 
@@ -46,5 +53,11 @@ route.get("/video/:id", getVideoById);
 route.post("/video/add", addVideo);
 route.put("/video/:id/update/:uid", updateVideo);
 route.delete("/video/:id/delete/:uid", deleteVideo);
+
+route.get("/comments", getAllComments);
+route.get("/comment/:id", getCommentById);
+route.post("/comment/add", insertComment);
+route.put("/comment/:id/update/:uid", updateVideo);
+route.delete("/comment/:id/delete/:uid", deleteVideo);
 
 module.exports = route;
