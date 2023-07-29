@@ -7,7 +7,9 @@ const getAllVideosData = () => {
 };
 
 const getVideoByIdData = (videoId) => {
-  const data = Video.findOne({ videoId: videoId });
+  const data = Video.findOne({ videoId: videoId }).populate(
+    "products comments"
+  );
   return data;
 };
 const videoIdCounter = async () => {
