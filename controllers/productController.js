@@ -23,10 +23,18 @@ const getAllProducts = async (req, res) => {
       });
     }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Something went wrong",
+    if (error.code) {
+      return res.status(error.code).json({
+        status: error.code,
+        message: error.message,
+        error: error.stack,
+      });
+    }
+    res.status(500);
+    return res.json({
       status: 500,
+      message: "Something went wrong!",
+      error: error.stack,
     });
   }
 };
@@ -41,17 +49,33 @@ const getProductById = async (req, res) => {
         status: 404,
       });
     } else {
-      res.status(200).json({
-        message: "Success Get Product Data!",
-        status: 200,
-        data: data,
+      if (error.code) {
+        return res.status(error.code).json({
+          status: error.code,
+          message: error.message,
+          error: error.stack,
+        });
+      }
+      res.status(500);
+      return res.json({
+        status: 500,
+        message: "Something went wrong!",
+        error: error.stack,
       });
     }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Something went wrong",
+    if (error.code) {
+      return res.status(error.code).json({
+        status: error.code,
+        message: error.message,
+        error: error.stack,
+      });
+    }
+    res.status(500);
+    return res.json({
       status: 500,
+      message: "Something went wrong!",
+      error: error.stack,
     });
   }
 };
@@ -68,10 +92,18 @@ const insertProduct = async (req, res) => {
       data: data,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Something went wrong",
+    if (error.code) {
+      return res.status(error.code).json({
+        status: error.code,
+        message: error.message,
+        error: error.stack,
+      });
+    }
+    res.status(500);
+    return res.json({
       status: 500,
+      message: "Something went wrong!",
+      error: error.stack,
     });
   }
 };
@@ -95,10 +127,18 @@ const updateProduct = async (req, res) => {
       data: data,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Something went wrong!",
+    if (error.code) {
+      return res.status(error.code).json({
+        status: error.code,
+        message: error.message,
+        error: error.stack,
+      });
+    }
+    res.status(500);
+    return res.json({
       status: 500,
+      message: "Something went wrong!",
+      error: error.stack,
     });
   }
 };
@@ -116,10 +156,18 @@ const deleteProduct = async (req, res) => {
       data: data,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Something went wrong!",
+    if (error.code) {
+      return res.status(error.code).json({
+        status: error.code,
+        message: error.message,
+        error: error.stack,
+      });
+    }
+    res.status(500);
+    return res.json({
       status: 500,
+      message: "Something went wrong!",
+      error: error.stack,
     });
   }
 };
