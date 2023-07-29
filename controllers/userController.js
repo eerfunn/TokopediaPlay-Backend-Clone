@@ -25,14 +25,6 @@ const getUsers = async (req, res) => {
       });
     }
     res.status(500);
-    if (error.code) {
-      return res.status(error.code).json({
-        status: error.code,
-        message: error.message,
-        error: error.stack,
-      });
-    }
-    res.status(500);
     return res.json({
       status: 500,
       message: "Something went wrong!",
