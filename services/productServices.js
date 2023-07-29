@@ -14,6 +14,9 @@ const getAllProductsService = async () => {
     return data;
   } catch (error) {
     console.error(error);
+    if (error.status) {
+      throw error;
+    }
     throw new Error(error);
   }
 };
@@ -24,6 +27,9 @@ const getProductByIdService = async (productId) => {
     return data;
   } catch (error) {
     console.error(error);
+    if (error.status) {
+      throw error;
+    }
     throw new Error(error);
   }
 };
@@ -39,6 +45,9 @@ const insertProductService = async (title, photo, price, uid) => {
     return data;
   } catch (error) {
     console.error(error);
+    if (error.status) {
+      throw error;
+    }
     throw new Error(error);
   }
 };
@@ -59,6 +68,9 @@ const updateProductService = async (productId, title, photo, price, uid) => {
     return data;
   } catch (error) {
     console.error(error);
+    if (error.status) {
+      throw error;
+    }
     throw new Error(error);
   }
 };
@@ -79,7 +91,10 @@ const deleteProductService = async (productId, userId) => {
     return data;
   } catch (error) {
     console.error(error);
-    throw new Error();
+    if (error.status) {
+      throw error;
+    }
+    throw new Error(error);
   }
 };
 
