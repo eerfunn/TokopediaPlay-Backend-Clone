@@ -17,7 +17,14 @@ const videoIdCounter = async () => {
   const vid = "video-" + (count + 1);
   return vid;
 };
-const insertVideoData = async (videoId, userId, title, thumbnail, products) => {
+const insertVideoData = async (
+  videoId,
+  videoUID,
+  userId,
+  title,
+  thumbnail,
+  products
+) => {
   try {
     let prodArr = [];
     let badData = 0;
@@ -33,6 +40,7 @@ const insertVideoData = async (videoId, userId, title, thumbnail, products) => {
     console.log("Fail: " + badData);
     const data = new Video({
       videoId: videoId,
+      videoUID: videoUID,
       title: title,
       userId: userId,
       thumbnail: thumbnail,

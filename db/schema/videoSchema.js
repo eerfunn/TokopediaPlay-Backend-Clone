@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const videoSchema = new Schema({
   videoId: String,
+  videoUID: String,
   userId: String,
   title: String,
   thumbnail: String,

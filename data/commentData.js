@@ -1,12 +1,18 @@
 const { Comment } = require("../db/schema/commentSchema");
 
 const getAllCommentsData = async () => {
-  const data = await Comment.find();
+  const data = await Comment.find().populate("videos users");
   return data;
 };
 
 const getCommentByIdData = async (commentId) => {
-  const data = await Comment.findOne({ commentId: commentId });
+  const data = await Comment.findOne({ commentId: commentId }).populate(
+    "videos users"
+  );
+  return data;
+};
+const getCommentByVideoData = async (videoId) => {
+  const data = await Comment.find({ videoId: videoId }).populate("userId");
   return data;
 };
 
@@ -62,6 +68,7 @@ module.exports = {
   getAllCommentsData,
   getCommentByIdData,
   commentIdCounter,
+  getCommentByVideoData,
   insertCommentData,
   updateCommentData,
   deleteCommentData,

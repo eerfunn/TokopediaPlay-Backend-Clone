@@ -27,6 +27,7 @@ const {
   insertComment,
   updateComment,
   deleteComment,
+  getCommentByVideo,
 } = require("../controllers/commentController");
 const { verifyToken } = require("../middleware/authMiddleware");
 const route = express.Router();
@@ -55,6 +56,7 @@ route.put("/video/:id/update/:uid", updateVideo);
 route.delete("/video/:id/delete/:uid", deleteVideo);
 
 route.get("/comments", getAllComments);
+route.get("/video/:vidid/comments", getCommentByVideo);
 route.get("/comment/:id", getCommentById);
 route.post("/comment/add", insertComment);
 route.put("/comment/:id/update/:uid", updateComment);

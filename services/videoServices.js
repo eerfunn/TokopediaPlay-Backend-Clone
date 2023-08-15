@@ -40,7 +40,7 @@ const addVideoService = async (videoId, title, userId, thumbnail, products) => {
     if (!userId) {
       throw new Error("Insufficient Parameter userId");
     }
-    await insertVideoData(vid, userId, title, thumbnail, products);
+    await insertVideoData(videoId, vid, userId, title, thumbnail, products);
   } catch (err) {
     console.error(error);
     if (error.code) {
