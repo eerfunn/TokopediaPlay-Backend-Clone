@@ -20,6 +20,15 @@ const userIdCounter = async () => {
   const uid = "user-" + (count + 1);
   return uid;
 };
+const guestUserData = async (uid, name) => {
+  const data = new User({
+    userId: uid,
+    email: `guest_${uid}@gmail.com`,
+    name: name,
+    createdAt: new Date(),
+  }).save();
+  return data;
+};
 const registerUserData = async (uid, email, name, password) => {
   const data = new User({
     userId: uid,
@@ -37,4 +46,5 @@ module.exports = {
   registerUserData,
   checkIsEmailRegistered,
   userIdCounter,
+  guestUserData,
 };

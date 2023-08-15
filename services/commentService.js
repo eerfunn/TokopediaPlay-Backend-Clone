@@ -5,13 +5,18 @@ const {
   insertCommentData,
   updateCommentData,
   deleteCommentData,
+  getCommentByVideoData,
 } = require("../data/commentData");
 const {
   getVideoByIdData,
   updateVideoData,
   updateVideoCommentData,
 } = require("../data/videoData");
-const { getUserByIdData } = require("../data/userData");
+const {
+  getUserByIdData,
+  guestUserData,
+  userIdCounter,
+} = require("../data/userData");
 const { errorTemplate } = require("../services/errorService");
 
 const getAllCommentsService = async () => {
@@ -43,21 +48,46 @@ const getCommentByIdService = async (commentId) => {
   }
 };
 
+const getCommentByVideoService = async (videoId) => {
+  try {
+    const video = await getVideoByIdData(videoId);
+    console.log(video);
+    const data = await getCommentByVideoData(video._id);
+    if (!data) {
+      return errorTemplate(404, "Data doesn't exist!");
+    }
+    return data;
+  } catch (error) {
+    console.error(error);
+    if (error.code) {
+      throw error;
+    }
+    throw new Error(error);
+  }
+};
+
 const insertCommentService = async (vid, uid, content) => {
   try {
     const commentId = await commentIdCounter();
     const videoId = await getVideoByIdData(vid);
-    console.log(videoId._id);
     const userId = await getUserByIdData(uid);
-    if (!videoId || !userId || !content) {
+    if (!videoId || !content) {
       return errorTemplate(400, "Bad Request, input data is not valid");
     }
-    const data = await insertCommentData(
-      commentId,
-      videoId._id,
-      userId._id,
-      content
-    );
+    if (!userId) {
+      const guestId = await userIdCounter();
+      await guestUserData(guestId, uid);
+      const guestData = await getUserByIdData(guestId);
+      const data = await insertCommentData(
+        commentId,
+        videoId._id,
+        guestData._id,
+        content
+      );
+      await updateVideoCommentData(vid, data._id);
+      return data;
+    }
+    const data = await insertCommentData(commentId, videoId._id, uid, content);
     await updateVideoCommentData(vid, data._id);
     return data;
   } catch (error) {
@@ -118,6 +148,7 @@ const deleteCommentService = async (id, uid) => {
 module.exports = {
   getAllCommentsService,
   getCommentByIdService,
+  getCommentByVideoService,
   insertCommentService,
   updateCommentService,
   deleteCommentService,
