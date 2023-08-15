@@ -2,6 +2,22 @@
 
 ### GG3FSGP0363 - Irfan Nada Bayu Samudera - FS7 @ Generasi Gigih 3.0
 
+### Frontend Repository
+
+[Frontend Repository](https://github.com/eerfunn/TokopediaPlay-Frontend-Clone)
+
+### Frontend Deployment
+
+[Frontend Deployment](https://tokopediaplayclone.vercel.app)
+
+### Backend Repository
+
+[Backend Repository](https://github.com/eerfunn/TokopediaPlay-Backend-Clone)
+
+### Backend Deployment
+
+[Backend Deployment](https://tokopediaplay-backend-clone-production.up.railway.app/)
+
 # Gist:
 
 [Gist Link](https://gist.github.com/eerfunn/0a58587925e8559c9a77d1026c3e7fa8)
