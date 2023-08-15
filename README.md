@@ -30,16 +30,17 @@
 
 - productId: Product identifier
 - title: Product title
-- photo: Product photo location
+- photo: Product photo url
 - price: Product price
-- added_by: Reference to user schema, to identify seller
+- added_by: Reference to user schema, used to identify seller
 - created_at: Product added date
 - updated_at: Product updated date
 - deleted_at: Product deleted date (for soft delete)
 
 ### Video Schema:
 
-- videoId: Identifier for each video
+- videoId: used to save YouTube video id, which will be used in YouTube embed
+- videoUID: Identifier for each video
 - userId: For Identify User that upload the video
 - title: For Video Title
 - thumbnail: For Video Thumbnail
