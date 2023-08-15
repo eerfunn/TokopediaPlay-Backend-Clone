@@ -2,6 +2,10 @@
 
 ### GG3FSGP0363 - Irfan Nada Bayu Samudera - FS7 @ Generasi Gigih 3.0
 
+### Description
+
+A final project from Generasi GIGIH 3.0, make a clone from `tokopedia.com/play` using MERN stack, and this is the Backend part of it
+
 ### Frontend Repository
 
 [Frontend Repository](https://github.com/eerfunn/TokopediaPlay-Frontend-Clone)
